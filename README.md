@@ -117,16 +117,33 @@ AdaBoostClassifier(algorithm='SAMME.R',
         Accuracy: 0.86567       Precision: 0.48538      Recall: 0.12450 F1: 0.19817     F2: 0.14625
         Total predictions: 15000        True positives:  249    False positives:  264   False negatives: 1751   True negatives: 12736
         
- The time processing was considered also as indicator of performance between the algorithms and just for the last case “Adaboost combined with Random Forest” the performance was worse than the others. Off course there are 2 algorithms combined to give a better performance and it has cost more time to be processed. But I preferred to use this algorithm to have a better precision and accuracy instead  to use another one that could have a low precision.
+   
 
-time processing test: 354.184 s       
+
+### Optmized using Adaboost combined with DecisionTree
+
+AdaBoostClassifier(algorithm='SAMME.R',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=32,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+            splitter='best'),
+          learning_rate=1, n_estimators=16, random_state=None)
+        Accuracy: 0.81977       Precision: 0.40327      Recall: 0.35750 F1: 0.37901     F2: 0.36580
+        Total predictions: 13000        True positives:  715    False positives: 1058   False negatives: 1285   True negatives: 9942
+
+time processing test: 4.013 s
+
+
+
 
 
 # 4. Tunning parameters
 
 
 
-When I choose the Random Forest algorithm combined with Adaboost my idea was to allow the reclassification in  a non deeper level. I setup the Adaboost classifier to have 10 estimators (not more) in order to avoid delays during computational processing. For the RandomForest I have set the variable max_depth=16 in order to have also a better precision.
+When I choose the DecisionTree  algorithm combined with Adaboost my idea was to allow the reclassification in a deeper level. I setup the Adaboost classifier to have 16 estimators (not more) in order to avoid delays during computational processing. For the DecisionTree I have set the variable max_depth=16 in order to have also a better precision.
 
 
 
@@ -138,12 +155,14 @@ Validation is a way to estimate the machine learning algorithm trained performan
 
 # 6. Evaluation metrics 
 
-Using Adaboost classifier combined with Random Forest I could obtain the following results from tester.py
+Using Adaboost classifier combined with DecisionTree I could obtain the following results from tester.py
 
-Accuracy: 0.86567       Precision: 0.48538 
+Accuracy: 0.81977       Precision: 0.40327      Recall: 0.35750 F1: 0.37901     F2: 0.36580
+Total predictions: 13000        True positives:  715    False positives: 1058   False negatives: 1285   True negatives: 9942
 
 
-According to the results my accuracy , considered the samples provided was about 86.7%  and the precision 48.5%. So the algorithm could predict the number of cases with a good accuracy, although the precision was medium. The fact of precision indicates almost 50% means that there are several cases 
+
+According to the results my accuracy , considered the samples provided was about 81.97%  and the precision 40.32%. So the algorithm could predict the number of cases with a good accuracy, although the precision was medium. The fact of precision indicates almost 50% means that there were some cases of false positives values.
 
 
 
