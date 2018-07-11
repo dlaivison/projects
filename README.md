@@ -28,6 +28,9 @@ This variable was created in order to sum all financial values and store in a nu
 
 The idea behind to use net_worth is because some persons didn’t share enough information about their financial  data. But in term of fraud the high management has shared such info in the reports, so there would be at least some connection with “cash” that could be the key to find another POI. So I decided to consider any financial information in order to have a better understanding of the dynamics in such company.  I also did other exercises using the number of e-mails sent by Poi to such a person or vice-versa. But I thought that “money’ was a better indicator of financial fraud even because there are some communications that are made not using electronic mails (e-mails) and are better to do in loco.
 
+## Variables to_poi_message_ratio and from_poi_message_ratio
+The variables above were created in order to estimate the percentage of messages received by POI's or sent to POI's. The idea was to have a non financial variable that could indicate also some relevance to determine if a person is POI or non POI.
+
 I used feature selection in order to verify the main labels that had real importance during the classification. As you can see the financial feature other has major weight on the classification.
 
 Rank of features
@@ -46,6 +49,13 @@ Rank of features
 0.000551 : director_fees
 0.000000 : loan_advances
 
+## After added the variables to_poi_message_ratio and from_poi_message_ratio
+
+Rank of features
+0.350057 : other
+0.326995 : to_poi_message_ratio
+0.167909 : total_stock_value
+0.155040 : bonus
 
 
 # 3.  Algorithms used and reason for that
