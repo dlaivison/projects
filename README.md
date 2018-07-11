@@ -47,7 +47,7 @@ GaussianNB(priors=None)
 
 
 
-# Using Decision tree
+Using Decision tree
 
 DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
             max_features=None, max_leaf_nodes=None,
@@ -62,8 +62,7 @@ DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
 
 
 
-
-# Using Random forest 
+Using Random forest 
 
 RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
             max_depth=16, max_features='auto', max_leaf_nodes=None,
@@ -76,7 +75,7 @@ RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
 
 
 
-# Using Adaboost combined with Random Forest
+Using Adaboost combined with Random Forest
 
 AdaBoostClassifier(algorithm='SAMME.R',
           base_estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
