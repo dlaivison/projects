@@ -3,7 +3,13 @@
 #Udacity nanodegree  - Machine Learning - Project
 # 1. Main Goals of this project
 
-The target of this project was to create a machine learning algorithm with a good precision and accuracy in order to detect possible POI (person of interest) related to Enron case.  The Enron case came to the media in 2001  and is one of most famous cases of fraud involving an energy company in America. In my analysis my focus was not to be distracted by certain patterns and focus mainly in the key term related and taken as the main result of fraud: money. I also considered the relations between Persons of Interest (POI) and other workers too. But considering that all account information have been already processed it could be the main indicator of other POI`s too.
+The target of this project was to create a machine learning algorithm with a good precision and accuracy in order to detect possible POI (person of interest) related to Enron case. The dataset was provided by Udacity and it contains about 146 registers. Each register has the following format :
+
+>>> print data_dict["ELLIOTT STEVEN"]
+{'salary': 170941, 'to_messages': 'NaN', 'deferral_payments': 'NaN', 'total_payments': 211725, 'exercised_stock_options': 4890344, 'bonus': 350000, 'restricted_stock': 1788391, 'shared_receipt_with_poi': 'NaN', 'restricted_stock_deferred': 'NaN', 'total_stock_value': 6678735, 'expenses': 78552, 'loan_advances': 'NaN', 'from_messages': 'NaN', 'other': 12961, 'from_this_person_to_poi': 'NaN', 'poi': False, 'director_fees': 'NaN', 'deferred_income': -400729, 'long_term_incentive': 'NaN', 'email_address': 'steven.elliott@enron.com', 'from_poi_to_this_person': 'NaN'}
+
+
+The Enron case came to the media in 2001  and is one of most famous cases of fraud involving an energy company in America. In my analysis my focus was not to be distracted by certain patterns and focus mainly in the key term related and taken as the main result of fraud: money. I also considered the relations between Persons of Interest (POI) and other workers too. But considering that all account information have been already processed it could be the main indicator of other POI`s too.
 
 In the beginning of my analysis there were 3 main outliers that were overfitting the data. The data from the main POI’s such as Kenneth Lay and Jeffrey Skiling were so far from the other non standard POI’s that they need to be removed. Another Outlier that could be considered highly as a POI was Mark Frevert. His net_worth was considered too high and in the same level as Lay and Skilling, that his status as POI should be considered as true. His data has been also removed from my dataset in order to create a perfect condition where other POI’s and non POI’s could be better detected.
 
@@ -17,7 +23,29 @@ I used all financial features possible (about 14) in order to create a new varia
 
 In order to engineer the variable net_worth, I have created a new numpy array and stored all the sum into it. After I need to concatenated the result into my_dataset variable.
 
+##net_worth variable
+This variable was created in order to sum all financial values and store in a numpy array
+
 The idea behind to use net_worth is because some persons didn’t share enough information about their financial  data. But in term of fraud the high management has shared such info in the reports, so there would be at least some connection with “cash” that could be the key to find another POI. So I decided to consider any financial information in order to have a better understanding of the dynamics in such company.  I also did other exercises using the number of e-mails sent by Poi to such a person or vice-versa. But I thought that “money’ was a better indicator of financial fraud even because there are some communications that are made not using electronic mails (e-mails) and are better to do in loco.
+
+I used feature selection in order to verify the main labels that had real importance during the classification. As you can see the financial feature other has major weight on the classification.
+
+Rank of features
+0.167670 : other
+0.117007 : total_payments
+0.113114 : expenses
+0.081226 : salary
+0.079338 : exercised_stock_options
+0.079130 : bonus
+0.078201 : total_stock_value
+0.077080 : restricted_stock
+0.064582 : deferred_income
+0.057949 : long_term_incentive
+0.043895 : restricted_stock_deferred
+0.040255 : deferral_payments
+0.000551 : director_fees
+0.000000 : loan_advances
+
 
 
 # 3.  Algorithms used and reason for that
