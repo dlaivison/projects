@@ -14,7 +14,7 @@ from tester import dump_classifier_and_data
 from tester import test_classifier
 
 
-
+# Routine to adjust scale
 def featureScaling(arr):
     out=[]
     arr.sort()
@@ -27,6 +27,7 @@ def featureScaling(arr):
 
     return out
 
+#Routine to adjust values from NaN to "0" or return numerical value
 def check_value(val):
     if val=="NaN" :
       return 0
@@ -90,6 +91,8 @@ for data_point in my_dataset.values():
 features_list.extend(['to_poi_message_ratio', 'from_poi_message_ratio','net_worth'])
 
 #features_list = ['poi','salary','to_poi_message_ratio', 'from_poi_message_ratio','net_worth']
+
+## After ran feature_selection filtered some items on the list for better performance
 features_list = ['poi','other','bonus','total_stock_value','to_poi_message_ratio']
 
 
@@ -127,6 +130,7 @@ out= np.array([])
 #print saida
 
 index =0 
+### Chart data to analyze outliers
 #for point in data:
 #    total_stock_value  = point[8]
 #    net_worth = point[2]+point[3]+point[4]+point[5]+point[6]+point[7]+point[8]+point[9]+point[10]+point[11]+point[12]+point[13]+point[14]
