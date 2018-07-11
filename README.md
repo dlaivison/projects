@@ -27,7 +27,7 @@ Thinking about the problem and how I would consider the best algorithm for this 
 
 I created an environment test and I have tested the performance of the following algorithms:
 
-# Using non SVM machines (Kmeans algorithm, clustering):
+### Using non SVM machines (Kmeans algorithm, clustering):
 
 KMeans(algorithm='auto', copy_x=True, init='k-means++', max_iter=100,
     n_clusters=2, n_init=10, n_jobs=1, precompute_distances='auto',
@@ -38,7 +38,7 @@ KMeans(algorithm='auto', copy_x=True, init='k-means++', max_iter=100,
 
 
 
-# Using Gaussian Naive bayes
+### Using Gaussian Naive bayes
 
  
 GaussianNB(priors=None)
@@ -47,7 +47,7 @@ GaussianNB(priors=None)
 
 
 
-Using Decision tree
+### Using Decision tree
 
 DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
             max_features=None, max_leaf_nodes=None,
@@ -62,7 +62,7 @@ DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
 
 
 
-Using Random forest 
+### Using Random forest 
 
 RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
             max_depth=16, max_features='auto', max_leaf_nodes=None,
@@ -75,7 +75,7 @@ RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
 
 
 
-Using Adaboost combined with Random Forest
+### Using Adaboost combined with Random Forest
 
 AdaBoostClassifier(algorithm='SAMME.R',
           base_estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
