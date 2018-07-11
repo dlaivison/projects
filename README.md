@@ -1,4 +1,4 @@
-# projects
+# Projects : Enron analysis
 
 #Udacity nanodegree  - Machine Learning - Project
 # 1. Main Goals of this project
