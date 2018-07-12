@@ -71,7 +71,7 @@ The idea behind to use net_worth is because some persons didn’t share enough i
 The variables above were created in order to estimate the percentage of messages received by POI's or sent to POI's. The idea was to have a non financial variable that could indicate also some relevance to determine if a person is POI or non POI.
 
 I used features_importance in order to verify the main labels that had real importance during the classification. As you can see the financial feature other has major weight on the classification.
-
+```
 Rank of features
 0.167670 : other
 0.117007 : total_payments
@@ -87,20 +87,20 @@ Rank of features
 0.040255 : deferral_payments
 0.000551 : director_fees
 0.000000 : loan_advances
-
+```
 But features_importance only works for tree type so I have changed the preliminary analysis in order to use SelectKbest.The results pointed to the same features, but it has automatized my proccess.
 
 I have run with more than 5 features but the results for precision and recall were lower. So I have decided to keep only the 4 more relevant.
     The initial 4 more relevants features were choosen, using SelecKbest method and after the features_list was updated.
 
 ## After added the variables to_poi_message_ratio and from_poi_message_ratio
-
+```
 Rank of features
 0.350057 : other
 0.326995 : to_poi_message_ratio
 0.167909 : total_stock_value
 0.155040 : bonus
-
+```
 The routine to adjust a feature scalling was created but it was not used due the fact most of all values didn't change the values of precision and recall after adjusting the scale.  
 
 
@@ -142,8 +142,41 @@ GridSearchCV(cv=None, error_score='raise',
         Total predictions: 13000        True positives:  433    False positives: 1232   False negatives: 1567   True negatives: 9768
 ```
 So I decided to keep only the SelectKbest and use the results to directly attach to next Classifier.
+The tunning parameters used after decided to use the DecisionTreeClassifier were the following:
+max_depth = 32  -> for DecisionTreeClassifier
+n_estimators=16 -> for AdaBoost Classifier
 
 
+Initially the values were setup to default. During the tests I have increased the numbers of estimators and max_depth. As a result the precision and recall have improved.
+
+Before  (defaut values)
+```
+AdaBoostClassifier(algorithm='SAMME.R',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+            splitter='best'),
+          learning_rate=1.0, n_estimators=50, random_state=None)
+        Accuracy: 0.78962       Precision: 0.32272      Recall: 0.33450 F1: 0.32850     F2: 0.33208
+        Total predictions: 13000        True positives:  669    False positives: 1404   False negatives: 1331   True negatives: 9596
+```
+After (Trying to optimize with higher values).
+```
+AdaBoostClassifier(algorithm='SAMME.R',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=64,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+            splitter='best'),
+          learning_rate=1, n_estimators=32, random_state=None)
+        Accuracy: 0.79177       Precision: 0.32848      Recall: 0.33850 F1: 0.33342     F2: 0.33645
+        Total predictions: 13000        True positives:  677    False positives: 1384   False negatives: 1323   True negatives: 9616
+```
+
+### Follows the results using other algorithms
 
 ### Using non SVM machines (Kmeans algorithm, clustering):
 
