@@ -4,10 +4,10 @@
 # 1. Main Goals of this project
 
 The target of this project was to create a machine learning algorithm with a good precision and accuracy in order to detect possible POI (person of interest) related to Enron case. The dataset was provided by Udacity and it contains about 146 registers. Each register has the following format :
-
+```
 >>> print data_dict["ELLIOTT STEVEN"]
 {'salary': 170941, 'to_messages': 'NaN', 'deferral_payments': 'NaN', 'total_payments': 211725, 'exercised_stock_options': 4890344, 'bonus': 350000, 'restricted_stock': 1788391, 'shared_receipt_with_poi': 'NaN', 'restricted_stock_deferred': 'NaN', 'total_stock_value': 6678735, 'expenses': 78552, 'loan_advances': 'NaN', 'from_messages': 'NaN', 'other': 12961, 'from_this_person_to_poi': 'NaN', 'poi': False, 'director_fees': 'NaN', 'deferred_income': -400729, 'long_term_incentive': 'NaN', 'email_address': 'steven.elliott@enron.com', 'from_poi_to_this_person': 'NaN'}
-
+```
 
 The Enron case came to the media in 2001  and is one of most famous cases of fraud involving an energy company in America. In my analysis my focus was not to be distracted by certain patterns and focus mainly in the key term related and taken as the main result of fraud: money. I also considered the relations between Persons of Interest (POI) and other workers too. But considering that all account information have been already processed it could be the main indicator of other POI`s too.
 
@@ -19,7 +19,7 @@ As I stated before “cash” would be the key in my investigation. Furthemore w
 The total numbers of persons investigated in the dataset provided is 146. From data perspective there are in the dataset xx users identified as POI and others 
 
 Sumary statistics of the dataset    :
-
+```
 [root@localhost final_project]# ./general_statistics.py
                       Dataset Size: 146
  Number of POI=true in the dataset: 18
@@ -49,7 +49,7 @@ Financial variable other :                      % of info provided 63.7 % (Data 
 Financial variable long_term_incentive :        % of info provided 45.21 % (Data informed: 66 Not Informed: 80  Total: 146 )
 Financial variable restricted_stock :           % of info provided 75.34 % (Data informed: 110 Not Informed: 36  Total: 146 )
 Financial variable director_fees :              % of info provided 11.64 % (Data informed: 17 Not Informed: 129  Total: 146 )
-
+```
 From the information about some features with percentagem of information below 50% could be completed discharged but as I created the variable net_worth (including all the financial info), I removed them and net_worth was now being considered in the final analysis
 
 
