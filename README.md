@@ -101,7 +101,7 @@ Rank of features
 0.167909 : total_stock_value
 0.155040 : bonus
 
-The routine to adjust a feature scalling was created but it was never used. 
+The routine to adjust a feature scalling was created but it was not used due the fact most of all values didn't change the values of precision and recall after adjusting the scale.  
 
 
 # 3.  Algorithms used and reason for that
@@ -110,6 +110,40 @@ The routine to adjust a feature scalling was created but it was never used.
 Thinking about the problem and how I would consider the best algorithm for this problem, I have no doubt that the algorithm should be a Tree kind. This is because the way I should consider someone POI or non POI would be considering several criterias. This is the way the Tree algorithm behaves  and it would not be a clustering k-means or even a linear regression … (Although linear could be applied, but there was no clear indication if a person was POI or non POI using such method).
 
 I created an environment test and I have tested the performance of the following algorithms:
+Initially GridSearchCV was used to optimize values but the results for prediciton and recall were below the expected
+```
+GridSearchCV(cv=None, error_score='raise',
+       estimator=Pipeline(memory=None,
+     steps=[('kbest', SelectKBest(k=4, score_func=<function f_classif at 0x7f098eb57848>)), ('tree', DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=16,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+            splitter='best'))]),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'kbest__k': [1, 2, 3, 4]}, pre_dispatch='2*n_jobs',
+       refit=True, scoring=None, verbose=0)
+        Accuracy: 0.79069       Precision: 0.27678      Recall: 0.22350 F1: 0.24730     F2: 0.23245
+        Total predictions: 13000        True positives:  447    False positives: 1168   False negatives: 1553   True negatives: 9832
+```
+```        
+GridSearchCV(cv=None, error_score='raise',
+       estimator=Pipeline(memory=None,
+     steps=[('kbest', SelectKBest(k=4, score_func=<function f_classif at 0x7f23dcc89848>)), ('tree', AdaBoostClassifier(algorithm='SAMME.R',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=32,
+            max_features=None, max_leaf_nodes=None,
+            m...None,
+            splitter='best'),
+          learning_rate=1, n_estimators=16, random_state=None))]),
+       fit_params={}, iid=True, n_jobs=1,
+       param_grid={'kbest__k': [1, 2, 3, 4]}, pre_dispatch='2*n_jobs',
+       refit=True, scoring=None, verbose=0)
+        Accuracy: 0.78469       Precision: 0.26006      Recall: 0.21650 F1: 0.23629     F2: 0.22400
+        Total predictions: 13000        True positives:  433    False positives: 1232   False negatives: 1567   True negatives: 9768
+```
+So I decided to keep only the SelectKbest and use the results to directly attach to next Classifier.
+
+
 
 ### Using non SVM machines (Kmeans algorithm, clustering):
 
