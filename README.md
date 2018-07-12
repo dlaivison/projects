@@ -315,7 +315,7 @@ AdaBoostClassifier(algorithm='SAMME.R',
         Total predictions: 12000        True positives:  839    False positives: 1051   False negatives: 1161   True negatives: 8949
 ```
 
-According to the results my accuracy , considered the samples provided was about 81.97%  and the precision 40.32%. So the algorithm could predict the number of cases with a good accuracy, although the precision was medium. The fact of precision indicates almost 50% means that there were some cases of false positives values.
+According to the results my accuracy , considered the samples provided was about 81.97%  and the precision 40.32%. So the algorithm could predict the number of cases with a good accuracy, although the precision was medium. The fact of precision indicates about 50% means that there were some cases of false positives values. A similar value has been found for the recall 41.95% and indicates also cases of false negatives.
 
 
 
