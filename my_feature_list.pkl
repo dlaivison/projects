@@ -1,12 +1,12 @@
 (lp0
 S'poi'
 p1
-aS'other'
+aS'expenses'
 p2
-aS'bonus'
+aS'other'
 p3
-aS'total_stock_value'
-p4
 aS'to_poi_message_ratio'
+p4
+aS'deferred_income'
 p5
 a.
