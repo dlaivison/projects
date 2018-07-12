@@ -179,27 +179,27 @@ AdaBoostClassifier(algorithm='SAMME.R',
 ### Follows the results using other algorithms
 
 ### Using non SVM machines (Kmeans algorithm, clustering):
-
+```
 KMeans(algorithm='auto', copy_x=True, init='k-means++', max_iter=100,
     n_clusters=2, n_init=10, n_jobs=1, precompute_distances='auto',
     random_state=0, tol=0.0001, verbose=0)
         Accuracy: 0.80600       Precision: 0.21384      Recall: 0.17000 F1: 0.18942     F2: 0.17727
         Total predictions: 15000        True positives:  340    False positives: 1250   False negatives: 1660   True negatives: 11750
-
+```
 
 
 
 ### Using Gaussian Naive bayes
 
- 
+``` 
 GaussianNB(priors=None)
         Accuracy: 0.33673       Precision: 0.15693      Recall: 0.90900 F1: 0.26765     F2: 0.46413
         Total predictions: 15000        True positives: 1818    False positives: 9767   False negatives:  182   True negatives: 3233
 
-
+```
 
 ### Using Decision tree
-
+```
 DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
             max_features=None, max_leaf_nodes=None,
             min_impurity_decrease=0.0, min_impurity_split=None,
@@ -209,12 +209,12 @@ DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=None,
         Accuracy: 0.80620       Precision: 0.26588      Recall: 0.25750 F1: 0.26162     F2: 0.25913
         Total predictions: 15000        True positives:  515    False positives: 1422   False negatives: 1485   True negatives: 11578
 
-
+```
 
 
 
 ### Using Random forest 
-
+```
 RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
             max_depth=16, max_features='auto', max_leaf_nodes=None,
             min_impurity_decrease=0.0, min_impurity_split=None,
@@ -223,11 +223,11 @@ RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
             oob_score=False, random_state=0, verbose=0, warm_start=False)
         Accuracy: 0.86167       Precision: 0.41379      Recall: 0.09000 F1: 0.14784     F2: 0.10670
         Total predictions: 15000        True positives:  180    False positives:  255   False negatives: 1820   True negatives: 12745
-
+```
 
 
 ### Using Adaboost combined with Random Forest
-
+```
 AdaBoostClassifier(algorithm='SAMME.R',
           base_estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
             max_depth=16, max_features='auto', max_leaf_nodes=None,
@@ -239,12 +239,12 @@ AdaBoostClassifier(algorithm='SAMME.R',
           learning_rate=1, n_estimators=10, random_state=None)
         Accuracy: 0.86567       Precision: 0.48538      Recall: 0.12450 F1: 0.19817     F2: 0.14625
         Total predictions: 15000        True positives:  249    False positives:  264   False negatives: 1751   True negatives: 12736
-        
+ ```       
    
 
 
 ### Optmized using Adaboost combined with DecisionTree
-
+```
 AdaBoostClassifier(algorithm='SAMME.R',
           base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=32,
             max_features=None, max_leaf_nodes=None,
@@ -257,7 +257,7 @@ AdaBoostClassifier(algorithm='SAMME.R',
         Total predictions: 13000        True positives:  715    False positives: 1058   False negatives: 1285   True negatives: 9942
 
 time processing test: 4.013 s
-
+```
 
 
 
@@ -267,23 +267,53 @@ time processing test: 4.013 s
 
 
 When I choose the DecisionTree  algorithm combined with Adaboost my idea was to allow the reclassification in a deeper level. I setup the Adaboost classifier to have 16 estimators (not more) in order to avoid delays during computational processing. For the DecisionTree I have set the variable max_depth=16 in order to have also a better precision.
+The K values selected by SelectKbest were not the best based on f_classification parameter. So I decided to use the feature_importances as the main selector of the features in order to maximize the performance.
 
+Adjusting the script and using the id's returned by feature_importances I could obtain the following result:
+```
+AdaBoostClassifier(algorithm='SAMME.R',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=32,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+            splitter='best'),
+          learning_rate=1, n_estimators=16, random_state=None)
+        Accuracy: 0.81567       Precision: 0.44392      Recall: 0.41950 F1: 0.43136     F2: 0.42417
+        Total predictions: 12000        True positives:  839    False positives: 1051   False negatives: 1161   True negatives: 8949
+```
+
+Tunning is an importante process in order to  have a better performance of the algorithm. But in order to have a good tunning you must know exactly the parameters you can choose to modify. In my case as I decided to use the DecisionTree , I knew that parameter max_depth would increase the ramifications of decision tree. So as I have several features this parameters could be used to reach a better precision. The feature_importances was computational calculated and it has been also used to improve my algorithm performance.
+
+In terms of mathematical models, tunning is crutial when you have a statistical/probability algorithm created and you try to represent certain function based on the training system. Based on the approach you take you can be very closer to the original model and better predict its behaviour.
 
 
 # 5. Validation
 
 
-Validation is a way to estimate the machine learning algorithm trained performance. The method I used to validate my algorithm was based in criteria of precision , accuracy and recall. But mainly precision and accuracy. The provided tester.py script was used in order to evaluate some metrics regarding specifically the script. 
+Validation is a way to estimate the machine learning algorithm trained performance. The method I used to validate my algorithm was based in criteria of precision , accuracy and recall. But mainly precision and accuracy. The provided tester.py script was used in order to evaluate some metrics regarding specifically the script.
+
+In terms of performances indicators I choose 4:  Accuracy, Precision, Recall and time processing.  Precision is important and mainly for this Enron project because it shows the script has identified quite well the true positive cases. Although there are cases of false positives, but the script has performed about 44.39% of precision.  For Recall the performance was almost in the same level and the performace was about  41.95%.  And in terms of accuracy the results were 81.56% , which means also a good accuracy for a machine learning algorithm. The Time processing is also important because is also a indicator of performance in mathematical terms. So even a simpler algorithm can reach the same result as another complex algorithm, but a faster speed. This is important in case of process that demands short time response.
+
+The script tester.py splits the data using the StratifiedShuffleSplit strategy.  This strategy seems very applicable for Enron dataset due the fact of missing information in some fields and the quantity of non POI. As this strategy splits randomly the data in the dataset, this could agregate more useful information than just splitting by percentage (such as used in crossvalidation). 
 
 
 # 6. Evaluation metrics 
 
 Using Adaboost classifier combined with DecisionTree I could obtain the following results from tester.py
 
-Accuracy: 0.81977       Precision: 0.40327      Recall: 0.35750 F1: 0.37901     F2: 0.36580
-Total predictions: 13000        True positives:  715    False positives: 1058   False negatives: 1285   True negatives: 9942
-
-
+```
+AdaBoostClassifier(algorithm='SAMME.R',
+          base_estimator=DecisionTreeClassifier(class_weight=None, criterion='gini', max_depth=32,
+            max_features=None, max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, presort=False, random_state=None,
+            splitter='best'),
+          learning_rate=1, n_estimators=16, random_state=None)
+        Accuracy: 0.81567       Precision: 0.44392      Recall: 0.41950 F1: 0.43136     F2: 0.42417
+        Total predictions: 12000        True positives:  839    False positives: 1051   False negatives: 1161   True negatives: 8949
+```
 
 According to the results my accuracy , considered the samples provided was about 81.97%  and the precision 40.32%. So the algorithm could predict the number of cases with a good accuracy, although the precision was medium. The fact of precision indicates almost 50% means that there were some cases of false positives values.
 
