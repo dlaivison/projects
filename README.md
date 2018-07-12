@@ -16,6 +16,45 @@ In the beginning of my analysis there were 3 main outliers that were overfitting
 
 As I stated before “cash” would be the key in my investigation. Furthemore we will going to see that I created a variable called net_worth (that contains all the informations related to payments) in order to check the possible connections with POI’s.
 
+The total numbers of persons investigated in the dataset provided is 146. From data perspective there are in the dataset xx users identified as POI and others 
+
+Sumary statistics of the dataset    :
+
+[root@localhost final_project]# ./general_statistics.py
+                      Dataset Size: 146
+ Number of POI=true in the dataset: 18
+Number of POI=false in the dataset: 128
+                            Others: 0
+
+I have created the script general_statistics in order to compute information about the dataset 
+
+[root@localhost final_project]# ./general_statistics.py
+                      Dataset Size: 146
+ Number of POI=true in the dataset: 18
+Number of POI=false in the dataset: 128
+                            Others: 0
+                            
+ -------------------- Statistics about financial variables -----------------------------------------------------
+Financial variable salary :                     % of info provided 65.07 % (Data informed: 95 Not Informed: 51  Total: 146 )
+Financial variable deferral_payments :          % of info provided 26.71 % (Data informed: 39 Not Informed: 107  Total: 146 )
+Financial variable total_payments :             % of info provided 85.62 % (Data informed: 125 Not Informed: 21  Total: 146 )
+Financial variable loan_advances :              % of info provided 2.74 % (Data informed: 4 Not Informed: 142  Total: 146 )
+Financial variable bonus :                      % of info provided 56.16 % (Data informed: 82 Not Informed: 64  Total: 146 )
+Financial variable restricted_stock_deferred :  % of info provided 12.33 % (Data informed: 18 Not Informed: 128  Total: 146 )
+Financial variable deferred_income :            % of info provided 33.56 % (Data informed: 49 Not Informed: 97  Total: 146 )
+Financial variable total_stock_value :          % of info provided 86.3 % (Data informed: 126 Not Informed: 20  Total: 146 )
+Financial variable expenses :                   % of info provided 65.07 % (Data informed: 95 Not Informed: 51  Total: 146 )
+Financial variable exercised_stock_options :    % of info provided 69.86 % (Data informed: 102 Not Informed: 44  Total: 146 )
+Financial variable other :                      % of info provided 63.7 % (Data informed: 93 Not Informed: 53  Total: 146 )
+Financial variable long_term_incentive :        % of info provided 45.21 % (Data informed: 66 Not Informed: 80  Total: 146 )
+Financial variable restricted_stock :           % of info provided 75.34 % (Data informed: 110 Not Informed: 36  Total: 146 )
+Financial variable director_fees :              % of info provided 11.64 % (Data informed: 17 Not Informed: 129  Total: 146 )
+
+From the information about some features with percentagem of information below 50% could be completed discharged but as I created the variable net_worth (including all the financial info), I removed them and net_worth was now being considered in the final analysis
+
+
+
+
 
 # 2. About features used in this project
 
@@ -31,7 +70,7 @@ The idea behind to use net_worth is because some persons didn’t share enough i
 ## Variables to_poi_message_ratio and from_poi_message_ratio
 The variables above were created in order to estimate the percentage of messages received by POI's or sent to POI's. The idea was to have a non financial variable that could indicate also some relevance to determine if a person is POI or non POI.
 
-I used feature selection in order to verify the main labels that had real importance during the classification. As you can see the financial feature other has major weight on the classification.
+I used features_importance in order to verify the main labels that had real importance during the classification. As you can see the financial feature other has major weight on the classification.
 
 Rank of features
 0.167670 : other
@@ -49,6 +88,11 @@ Rank of features
 0.000551 : director_fees
 0.000000 : loan_advances
 
+But features_importance only works for tree type so I have changed the preliminary analysis in order to use SelectKbest.The results pointed to the same features, but it has automatized my proccess.
+
+I have run with more than 5 features but the results for precision and recall were lower. So I have decided to keep only the 4 more relevant.
+    The initial 4 more relevants features were choosen, using SelecKbest method and after the features_list was updated.
+
 ## After added the variables to_poi_message_ratio and from_poi_message_ratio
 
 Rank of features
@@ -56,6 +100,8 @@ Rank of features
 0.326995 : to_poi_message_ratio
 0.167909 : total_stock_value
 0.155040 : bonus
+
+The routine to adjust a feature scalling was created but it was never used. 
 
 
 # 3.  Algorithms used and reason for that
